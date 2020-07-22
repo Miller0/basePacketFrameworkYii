@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'robot@spacebot.pp.uaa',
+    'adminEmail' => 'robot@spacebot.pp.ua',
     'senderEmail' => 'robot@spacebot.pp.ua',
     'senderName' => 'spacebot.pp.ua',
     'user.passwordResetTokenExpire' => 3600,

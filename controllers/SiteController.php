@@ -63,18 +63,23 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $a = Test::find()->select(['id','text'])->asArray()->all();
+        $z = Test::find()->select(['id','text'])->asArray()->all();
 
 $a = date("H:i:s");
         for ($i=0;$i<1000;$i++) {
             $model = new Test();
+            if($i<50)
+            {
+                $a.=$a;
+            }
+
             $model->text = $a;
             $model->save();
         }
 
         return $this->render('index',
             [
-                'test'=>$a
+                'test'=>$z
             ]);
     }
 

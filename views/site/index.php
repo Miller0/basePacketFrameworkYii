@@ -10,7 +10,9 @@ $this->title = 'My Yii Application';
 foreach ($test as $t)
 {
     echo $t['id'] ;
+    echo '||';
     echo $t['text'] ;
+    echo '<br>';
 
 }
 

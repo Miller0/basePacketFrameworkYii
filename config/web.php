@@ -14,7 +14,6 @@ $config = [
     'components' => [
         'request' => [
             'cookieValidationKey' => 'test',
-            'baseUrl'=> '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

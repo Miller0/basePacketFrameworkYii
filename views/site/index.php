@@ -7,13 +7,5 @@ $this->title = 'My Yii Application';
 
 <?php
 
-foreach ($test as $t)
-{
-    echo $t['id'] ;
-    echo '||';
-    echo $t['text'] ;
-    echo '<br>';
-
-}
 
 ?>

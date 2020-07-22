@@ -66,13 +66,8 @@ class SiteController extends Controller
         $a = Test::find()->select(['id','text'])->asArray()->all();
 
 $a = date("H:i:s");
-        for ($i=0;$i<5000;$i++) {
+        for ($i=0;$i<1000;$i++) {
             $model = new Test();
-            if($i<5)
-            {
-                $a.=$a;
-            }
-
             $model->text = $a;
             $model->save();
         }

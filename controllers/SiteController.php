@@ -2,14 +2,19 @@
 
 namespace app\controllers;
 
-use app\models\generated\Test;
+use app\models\form\PasswordResetRequest;
+use app\models\form\ResetPassword;
+use app\models\form\Signup;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
+use app\models\form\Login;
 
 class SiteController extends Controller
 {
@@ -63,7 +68,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-
+        $model = User::find()->where(['username' => 'admin'])->one();
+        if (empty($model))
+        {
+            $user = new User();
+            $user->username = '456';
+            $user->email = 'admin@кодеeр.укр';
+            $user->setPassword('admin');
+            $user->generateAuthKey();
+            if ($user->save())
+            {
+                echo 'good';
+            }
+        }
         return $this->render('index',
             [
             ]);
@@ -76,12 +93,14 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest)
+        {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        $model = new Login();
+        if ($model->load(Yii::$app->request->post()) && $model->login())
+        {
             return $this->goBack();
         }
 
@@ -111,7 +130,8 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail']))
+        {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
             return $this->refresh();
@@ -130,4 +150,73 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+
+    public function actionSignup()
+    {
+        $model = new Signup();
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if ($user = $model->signup())
+            {
+                if (Yii::$app->getUser()->login($user))
+                {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Requests password reset.
+     *
+     * @return mixed
+     */
+    public function actionRequestPasswordReset()
+    {
+        $model = new PasswordResetRequest();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                return $this->goHome();
+            } else {
+                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+            }
+        }
+
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new ResetPassword($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'New password was saved.');
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+            ]);
+      }
 }

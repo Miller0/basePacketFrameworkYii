@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\generated\Test;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $a = Test::find()->select(['id','text'])->asArray()->all();
+
+        return $this->render('index',
+            [
+                'test'=>$a
+            ]);
     }
 
     /**

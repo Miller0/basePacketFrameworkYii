@@ -37,33 +37,45 @@ class PasswordResetRequest extends Model
      */
     public function sendEmail()
     {
-        /* @var $user User */
-        $user = User::findOne([
-            'deleted' => User::STATUS_NOT_DELETED,
-            'email' => $this->email,
-        ]);
+//        /* @var $user User */
+////        $user = User::findOne([
+////            'deleted' => User::STATUS_NOT_DELETED,
+////            'email' => $this->email,
+////        ]);
+////
+////        if (!$user) {
+////            return false;
+////        }
+////
+////        if (!User::isPasswordResetTokenValid($user->passwordResetToken)) {
+////            $user->generatePasswordResetToken();
+////            if (!$user->save()) {
+////                return false;
+////            }
+////        }
+////
+////        return Yii::$app
+////            ->mailer
+////            ->compose(
+////                ['html' => 'layouts/passwordResetToken-html', 'text' => 'layouts/passwordResetToken-text'],
+////                ['user' => $user]
+////            )
+////            ->setFrom('robot@spacebot.pp.ua')
+////            ->setTo($this->email)
+////            ->setSubject('Password reset for ' . Yii::$app->name)
+////            ->send();
 
-        if (!$user) {
-            return false;
-        }
-
-        if (!User::isPasswordResetTokenValid($user->passwordResetToken)) {
-            $user->generatePasswordResetToken();
-            if (!$user->save()) {
-                return false;
-            }
-        }
-
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'layouts/passwordResetToken-html', 'text' => 'layouts/passwordResetToken-text'],
-                ['user' => $user]
-            )
+      return  Yii::$app->mailer->compose()
             ->setFrom('robot@spacebot.pp.ua')
-            ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
+            ->setTo('robot@spacebot.pp.ua')
+            ->setSubject('Тема сообщения')
+            ->setTextBody('Текст сообщения')
+            ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
             ->send();
+
+
     }
+
+
 
 }

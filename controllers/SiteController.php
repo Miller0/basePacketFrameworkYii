@@ -69,6 +69,22 @@ class SiteController extends Controller
         $model->text =  date("H:i:s");
         $model->save();
 
+        $model = new Test();
+        $model->text =  date("H:i:s");
+        $model->save();
+
+        $model = new Test();
+        $model->text =  date("H:i:s");
+        $model->save();
+
+        $model = new Test();
+        $model->text =  date("H:i:s");
+        $model->save();
+
+        $model = new Test();
+        $model->text =  date("H:i:s");
+        $model->save();
+
         return $this->render('index',
             [
                 'test'=>$a

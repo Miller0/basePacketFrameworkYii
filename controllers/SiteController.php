@@ -65,25 +65,12 @@ class SiteController extends Controller
 
         $a = Test::find()->select(['id','text'])->asArray()->all();
 
-        $model = new Test();
-        $model->text =  date("H:i:s");
-        $model->save();
 
-        $model = new Test();
-        $model->text =  date("H:i:s");
-        $model->save();
-
-        $model = new Test();
-        $model->text =  date("H:i:s");
-        $model->save();
-
-        $model = new Test();
-        $model->text =  date("H:i:s");
-        $model->save();
-
-        $model = new Test();
-        $model->text =  date("H:i:s");
-        $model->save();
+        for ($i=0;$i<100;$i++) {
+            $model = new Test();
+            $model->text = date("H:i:s");
+            $model->save();
+        }
 
         return $this->render('index',
             [

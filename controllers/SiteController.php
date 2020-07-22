@@ -68,7 +68,7 @@ class SiteController extends Controller
 $a = date("H:i:s");
         for ($i=0;$i<1000;$i++) {
             $model = new Test();
-            if($i<50)
+            if($i<5)
             {
                 $a.=$a;
             }

@@ -28,7 +28,7 @@ class SaveError
             $error = new Errors();
             $error->code = $code;
             $error->userId = Yii::$app->user->getId() ?? 0;
-            $error->text = self::ERROR_CODES[$code].': '.$text;
+            $error->text = self::ERROR_CODES[$code].'. '.$text;
             $error->exception = $exception;
 
             if($error->save())

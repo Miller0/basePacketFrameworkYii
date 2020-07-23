@@ -30,7 +30,7 @@ class Login extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            //['verifyCode', 'captcha'],
+            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -66,6 +66,7 @@ class Login extends Model
             if (Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0))
             {
                 $logAuth = new LogAuthorizations();
+                $logAuth->userId = $this->_user->getId();
                 $logAuth->email = $this->_user->getEmail();
                 $logAuth->ip = Yii::$app->request->userIP;
 

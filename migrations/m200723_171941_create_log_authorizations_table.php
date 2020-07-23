@@ -20,6 +20,7 @@ class m200723_171941_create_log_authorizations_table extends Migration
 
         $this->createTable('logAuthorizations', [
             'id' => $this->primaryKey(),
+            'userId' => $this->integer()->notNull(),
             'email' => $this->string()->notNull(),
             'ip' => $this->string()->notNull(),
             'created' => $this->timestamp()->notNull()->append('DEFAULT current_timestamp()'),

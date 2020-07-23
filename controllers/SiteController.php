@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\form\PasswordResetRequest;
 use app\models\form\ResetPassword;
 use app\models\form\Signup;
+use app\models\generated\LogAuthorizations;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
@@ -148,6 +149,16 @@ class SiteController extends Controller
             {
                 if (Yii::$app->getUser()->login($user))
                 {
+                    $logAuth = new LogAuthorizations();
+                    $logAuth->userId = $user->getId();
+                    $logAuth->email = $user->getEmail();
+                    $logAuth->ip = Yii::$app->request->userIP;
+
+                    if($logAuth->validate())
+                    {
+                        $logAuth->save();
+                    }
+
                     return $this->goHome();
                 }
             }

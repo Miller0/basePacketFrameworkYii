@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "logAuthorizations".
  *
  * @property int $id
+ * @property int $userId
  * @property string $email
  * @property string $ip
  * @property string $created
@@ -28,7 +29,8 @@ class LogAuthorizations extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'ip'], 'required'],
+            [['userId', 'email', 'ip'], 'required'],
+            [['userId'], 'integer'],
             [['created'], 'safe'],
             [['email', 'ip'], 'string', 'max' => 255],
         ];
@@ -41,6 +43,7 @@ class LogAuthorizations extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'userId' => 'User ID',
             'email' => 'Email',
             'ip' => 'Ip',
             'created' => 'Created',

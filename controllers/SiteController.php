@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\form\PasswordResetRequest;
-use app\models\form\ResetPassword;
-use app\models\form\Signup;
+use app\models\form\PasswordResetRequestForm;
+use app\models\form\ResetPasswordForm;
+use app\models\form\SignupForm;
 use app\models\generated\LogAuthorizations;
 use app\utils\SaveError;
 use Yii;
@@ -14,8 +14,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\ContactForm;
-use app\models\form\Login;
+use app\models\form\LoginForm;
 
 class SiteController extends Controller
 {
@@ -85,7 +84,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Login action.
+     * LoginForm action.
      *
      * @return Response|string
      */
@@ -96,7 +95,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new Login();
+        $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
 
@@ -121,24 +120,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail']))
-        {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Displays about page.
@@ -153,7 +134,7 @@ class SiteController extends Controller
 
     public function actionSignup()
     {
-        $model = new Signup();
+        $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post()))
         {
@@ -188,7 +169,7 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
-        $model = new PasswordResetRequest();
+        $model = new PasswordResetRequestForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -214,7 +195,7 @@ class SiteController extends Controller
     public function actionResetPassword($token)
     {
         try {
-            $model = new ResetPassword($token);
+            $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }

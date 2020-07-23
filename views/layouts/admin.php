@@ -40,26 +40,9 @@ AppAsset::register($this);
 
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Management site', 'url' => ['/admin']],
+        ['label' => 'Users List', 'url' => ['/admin/users']],
     ];
 
-    if (Yii::$app->user->isGuest)
-    {
-        $menuItems[] = ['label' => 'SignupForm', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'LoginForm', 'url' => ['/site/login']];
-    }
-    else
-    {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

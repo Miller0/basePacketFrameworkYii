@@ -7,7 +7,7 @@ use yii\base\Model;
 use app\models\User;
 
 
-class Signup extends Model
+class SignupForm extends Model
 {
 
     public $username;

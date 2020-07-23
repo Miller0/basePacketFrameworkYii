@@ -8,7 +8,7 @@ use app\models\User;
 use app\models\generated\LogAuthorizations;
 
 
-class Login extends Model
+class LoginForm extends Model
 {
     public $email;
     public $password;

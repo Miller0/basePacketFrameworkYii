@@ -9,7 +9,7 @@ use yii\base\InvalidParamException;
 /**
  * Password reset form
  */
-class ResetPassword extends Model
+class ResetPasswordForm extends Model
 {
 
     public $password;
@@ -17,7 +17,7 @@ class ResetPassword extends Model
     private $_user;
 
     /**
-     * ResetPassword constructor.
+     * ResetPasswordForm constructor.
      * @param $token
      * @param array $config
      */

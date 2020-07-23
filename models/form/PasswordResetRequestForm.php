@@ -9,7 +9,7 @@ use app\models\User;
 /**
  * Password reset request form
  */
-class PasswordResetRequest extends Model
+class PasswordResetRequestForm extends Model
 {
     public $email;
 

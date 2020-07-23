@@ -43,13 +43,16 @@ class PasswordResetRequest extends Model
             'email' => $this->email,
         ]);
 
-        if (!$user) {
+        if (!$user)
+        {
             return false;
         }
 
-        if (!User::isPasswordResetTokenValid($user->passwordResetToken)) {
+        if (!User::isPasswordResetTokenValid($user->passwordResetToken))
+        {
             $user->generatePasswordResetToken();
-            if (!$user->save()) {
+            if (!$user->save())
+            {
                 return false;
             }
         }
@@ -64,11 +67,8 @@ class PasswordResetRequest extends Model
             ->setTo($this->email)
             ->setSubject('Password reset for ' . Yii::$app->name)
             ->send();
-        
-
 
     }
-
 
 
 }

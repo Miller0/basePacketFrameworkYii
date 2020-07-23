@@ -6,18 +6,19 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+
     'bootstrap' => [
         'log',
         'debug',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
-            'cookieValidationKey' => 'test',
-            'baseUrl'=> '',
+            'cookieValidationKey' => 'saejgmfowqmflmsdoujvno23j48jrejfgmqadmiopS**Tjgowgjmvoijfoiqoirfvz',
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -31,9 +32,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => false,
         ],
         'log' => [
@@ -54,11 +52,21 @@ $config = [
             ],
         ],
 
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => 'authItem',
+            'itemChildTable' => 'authItemChild',
+            'assignmentTable' => 'authAssignment',
+            'ruleTable' => 'authRule',
+            'defaultRoles' => ['guest'],
+        ],
+
     ],
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if (YII_ENV_DEV)
+{
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [

@@ -1,19 +1,19 @@
 <?php
 
 namespace app\models\form;
-;
+
+use Yii;
 use yii\base\Model;
 use app\models\User;
 
-/**
- * Signup form
- */
+
 class Signup extends Model
 {
 
     public $username;
     public $email;
     public $password;
+    public $verifyCode;
 
     /**
      * @inheritdoc
@@ -32,6 +32,17 @@ class Signup extends Model
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['verifyCode', 'captcha'],
+        ];
+    }
+
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'verifyCode' => 'Verification Code',
         ];
     }
 
@@ -41,9 +52,8 @@ class Signup extends Model
     public function signup()
     {
 
-        if (!$this->validate()) {
+        if (!$this->validate())
             return false;
-        }
 
         $user = new User();
         $user->username = $this->username;
@@ -51,7 +61,22 @@ class Signup extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-        return $user->save() ? $user : false;
+        if ($user->save())
+        {
+            try
+            {
+                $auth = Yii::$app->authManager;
+                $role = $auth->getRole('user');
+                $auth->assign($role, $user->id);
+            }
+            catch (\Exception $e)
+            {
+            }
+
+            return $user;
+        }
+
+        return false;
 
     }
 

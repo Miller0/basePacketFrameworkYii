@@ -20,7 +20,7 @@ class User extends Users implements \yii\web\IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+       return false;
     }
 
     public static function findByUsername($username)
@@ -38,6 +38,11 @@ class User extends Users implements \yii\web\IdentityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 
 

@@ -5,6 +5,7 @@ namespace app\models\form;
 use Yii;
 use yii\base\Model;
 use app\models\User;
+use app\models\generated\LogAuthorizations;
 
 
 class Login extends Model
@@ -12,6 +13,7 @@ class Login extends Model
     public $email;
     public $password;
     public $rememberMe = true;
+    public $verifyCode;
 
     private $_user = false;
 
@@ -28,8 +30,10 @@ class Login extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            //['verifyCode', 'captcha'],
         ];
     }
+
 
     /**
      * Validates the password.
@@ -40,10 +44,12 @@ class Login extends Model
      */
     public function validatePassword($attribute, $params)
     {
-        if (!$this->hasErrors()) {
+        if (!$this->hasErrors())
+        {
             $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
+            if (!$user || !$user->validatePassword($this->password))
+            {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
@@ -55,8 +61,24 @@ class Login extends Model
      */
     public function login()
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        if ($this->validate())
+        {
+            if (Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0))
+            {
+                $logAuth = new LogAuthorizations();
+                $logAuth->email = $this->_user->getEmail();
+                $logAuth->browser =  get_browser();
+                $logAuth->ip = Yii::$app->request->userIP;
+
+                if($logAuth->validate())
+                {
+                    $logAuth->save();
+                }
+
+                return true;
+
+            }
+
         }
         return false;
     }
@@ -66,7 +88,8 @@ class Login extends Model
      */
     public function getUser()
     {
-        if ($this->_user === false) {
+        if ($this->_user === false)
+        {
             $this->_user = User::findByEmail($this->email);
         }
 

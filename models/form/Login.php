@@ -67,7 +67,6 @@ class Login extends Model
             {
                 $logAuth = new LogAuthorizations();
                 $logAuth->email = $this->_user->getEmail();
-                $logAuth->browser =  get_browser();
                 $logAuth->ip = Yii::$app->request->userIP;
 
                 if($logAuth->validate())

@@ -6,6 +6,7 @@ use app\models\form\PasswordResetRequest;
 use app\models\form\ResetPassword;
 use app\models\form\Signup;
 use app\models\generated\LogAuthorizations;
+use app\utils\SaveError;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
@@ -67,6 +68,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+        try
+        {
+            $i =  1/0;
+        }
+        catch (\Exception $e)
+        {
+            SaveError::save(1,$e->getMessage());
+        }
+
+
         return $this->render('index',
             [
             ]);

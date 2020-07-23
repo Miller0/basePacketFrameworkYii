@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%log_authorizations}}`.
+ * Handles the creation of table `{{%error}}`.
  */
-class m200723_171941_create_log_authorizations_table extends Migration
+class m200723_192125_create_error_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -14,16 +14,19 @@ class m200723_171941_create_log_authorizations_table extends Migration
     {
         $tableOptions = null;
 
-        if ($this->db->driverName === 'mysql') {
+        if ($this->db->driverName === 'mysql')
+        {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('logAuthorizations', [
+        $this->createTable('errors', [
             'id' => $this->primaryKey(),
-            'userId' => $this->integer()->notNull(),
-            'email' => $this->string()->notNull(),
-            'ip' => $this->string()->notNull(),
             'created' => $this->timestamp()->notNull()->append('DEFAULT current_timestamp()'),
+            'userId' => $this->integer(),
+            'code' => $this->integer(),
+            'text' => $this->string(32),
+            'exception' => $this->string(32),
+
         ], $tableOptions);
     }
 
@@ -32,6 +35,6 @@ class m200723_171941_create_log_authorizations_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('logAuthorizations');
+        $this->dropTable('errors');
     }
 }

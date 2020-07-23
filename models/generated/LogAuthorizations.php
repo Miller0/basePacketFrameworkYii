@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string $email
- * @property string $browser
  * @property string $ip
  * @property string $created
  */
@@ -29,9 +28,9 @@ class LogAuthorizations extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'browser', 'ip'], 'required'],
+            [['email', 'ip'], 'required'],
             [['created'], 'safe'],
-            [['email', 'browser', 'ip'], 'string', 'max' => 255],
+            [['email', 'ip'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,7 +42,6 @@ class LogAuthorizations extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'email' => 'Email',
-            'browser' => 'Browser',
             'ip' => 'Ip',
             'created' => 'Created',
         ];

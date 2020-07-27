@@ -6,6 +6,10 @@ use app\models\generated\Users;
 use yii;
 use yii\base\NotSupportedException;
 
+/**
+ * Class User
+ * @package app\models
+ */
 class User extends Users implements \yii\web\IdentityInterface
 {
 

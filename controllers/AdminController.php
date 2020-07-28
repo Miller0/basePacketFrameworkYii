@@ -112,7 +112,7 @@ class AdminController extends Controller
            }
        }
 
-      return  print("<pre>" . execPrint("git pull") . "</pre>");
+      return  print("<pre>" . execPrint('whoami') . "</pre>");
 
     }
 

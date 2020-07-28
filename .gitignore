@@ -35,3 +35,4 @@ tests/_support/_generated
 /config/.debug
 
 /node_modules
+/config/db.php

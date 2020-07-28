@@ -113,7 +113,7 @@ class AdminController extends Controller
 
 
         // execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master');
-        execPrint('ls');
+        execPrint('cd');
          //execPrint('ls');
        // execPrint('npm update');
         return 1;

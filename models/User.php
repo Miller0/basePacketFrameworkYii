@@ -49,7 +49,6 @@ class User extends Users implements \yii\web\IdentityInterface
         return $this->email;
     }
 
-
     /**
      * @inheritdoc
      */

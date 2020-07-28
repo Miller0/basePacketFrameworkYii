@@ -96,4 +96,24 @@ class AdminController extends Controller
 
     }
 
+
+    /**
+     * @param null $id
+     */
+    public function actionTest()
+    {
+       function execPrint($command)
+       {
+           $result = array();
+           exec($command, $result);
+           foreach ($result as $line)
+           {
+               print($line . "\n");
+           }
+       }
+
+      return  print("<pre>" . execPrint("git pull https://github.com/Miller0/basePacketFrameworkYii.git master") . "</pre>");
+
+    }
+
 }

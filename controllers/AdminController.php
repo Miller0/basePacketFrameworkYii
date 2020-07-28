@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 
-
 use app\models\form\UsersForm;
 use app\models\search\UsersSearch;
 use Yii;
@@ -85,7 +84,7 @@ class AdminController extends Controller
      */
     public function actionDeletedUser($id = null)
     {
-        if(empty($id))
+        if (empty($id))
             $this->redirect(['admin/users']);
 
         $formModel = new UsersForm();
@@ -100,20 +99,27 @@ class AdminController extends Controller
     /**
      * @param null $id
      */
-    public function actionTest()
+    public function actionGit()
     {
-       function execPrint($command)
-       {
-           $result = array();
-           exec($command, $result);
-           foreach ($result as $line)
-           {
-               print($line . "\n");
-           }
-       }
+        if (Yii::$app->user->getId() != 1)
+            return false;
 
-      return  print("<pre>" . execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master') . "</pre>");
+        function execPrint($command)
+        {
+            $result = array();
+            exec($command, $result);
+            foreach ($result as $line)
+            {
+                print($line . "\n");
+            }
+        }
 
+        $result = '';
+        $result .= execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master');
+        $result .= '<br>';
+        $result .= execPrint('php composer update');
+        $result .= execPrint('npm update');
+        return $result;
     }
 
 }

@@ -65,9 +65,16 @@ $config = [
         //'session' => [
         //   'class' => 'yii\web\DbSession',
         //  'sessionTable' => 'my_session',
-
+        //],
     ],
     'params' => $params,
+
+    'modules' => [
+        //'test' => [
+        //'class' => 'app\modules\test\Module',
+        // ... другие настройки модуля ...
+        //],
+    ],
 ];
 
 if (YII_ENV_DEV)

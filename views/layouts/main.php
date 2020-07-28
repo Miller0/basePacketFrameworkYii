@@ -8,10 +8,14 @@ use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$this->title = Url::base();
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,7 +35,7 @@ AppAsset::register($this);
     <?php
 
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => Url::base(true),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

@@ -8,8 +8,8 @@ $config = [
     'basePath' => dirname(__DIR__),
 
     'bootstrap' => [
-        'log',
-        'debug',
+        //'log',
+        //'debug',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -60,6 +60,11 @@ $config = [
             'ruleTable' => 'authRule',
             'defaultRoles' => ['guest'],
         ],
+
+        //https://yiiframework.com.ua/ru/doc/guide/2/tutorial-performance-tuning/#optimizing-session
+        //'session' => [
+        //   'class' => 'yii\web\DbSession',
+        //  'sessionTable' => 'my_session',
 
     ],
     'params' => $params,

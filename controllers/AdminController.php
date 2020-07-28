@@ -112,7 +112,7 @@ class AdminController extends Controller
            }
        }
 
-      return  print("<pre>" . execPrint('whoami') . "</pre>");
+      return  print("<pre>" . execPrint('git pull https://Miller0:MrMillerG580@https://github.com/Miller0/basePacketFrameworkYii.git master') . "</pre>");
 
     }
 

@@ -106,20 +106,17 @@ class AdminController extends Controller
 
         function execPrint($command)
         {
-            $result = array();
-            exec($command, $result);
-            foreach ($result as $line)
-            {
-                print($line . "\n");
-            }
+            $result = shell_exec($command);
+               // var_dump($r);
+            var_dump($result);
         }
 
-        $result = '';
-        $result .= execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master');
-        $result .= '<br>';
-        $result .= execPrint('php composer update');
-        $result .= execPrint('npm update');
-        return $result;
+
+        // execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master');
+        execPrint('ls');
+         //execPrint('ls');
+       // execPrint('npm update');
+        return 1;
     }
 
 }

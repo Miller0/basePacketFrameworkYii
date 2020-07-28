@@ -96,28 +96,4 @@ class AdminController extends Controller
     }
 
 
-    /**
-     * @param null $id
-     */
-    public function actionGit()
-    {
-        if (Yii::$app->user->getId() != 1)
-            return false;
-
-        function execPrint($command)
-        {
-            $result = shell_exec($command);
-               // var_dump($r);
-            var_dump($result);
-        }
-
-
-        // execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master');
-        execPrint('cd');
-         execPrint('ls');
-         //execPrint('ls');
-       // execPrint('npm update');
-        return 1;
-    }
-
 }

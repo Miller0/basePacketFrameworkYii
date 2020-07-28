@@ -100,7 +100,7 @@ class AdminController extends Controller
     /**
      * @param null $id
      */
-    public function actionOk()
+    public function actionTest()
     {
        function execPrint($command)
        {
@@ -112,7 +112,7 @@ class AdminController extends Controller
            }
        }
 
-      return  print("<pre>" . execPrint('git pull https://Miller0:MrMillerG580@https://github.com/Miller0/basePacketFrameworkYii.git master') . "</pre>");
+      return  print("<pre>" . execPrint('git pull https://Miller0:MrMillerG580@github.com/Miller0/basePacketFrameworkYii.git master') . "</pre>");
 
     }
 
